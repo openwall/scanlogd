@@ -389,14 +389,8 @@ static void drop_root(void)
 	if (setgid(pw->pw_gid)) pexit("setgid");
 	if (setuid(pw->pw_uid)) pexit("setuid");
 }
-#else
-#ifdef SCANLOGD_CHROOT
+#elif defined(SCANLOGD_CHROOT)
 #warning SCANLOGD_CHROOT makes no sense without SCANLOGD_USER; ignored.
-#endif
-static void cleanup(int signum)
-{
-	exit(0);	/* Just so that atexit(3) jobs are called */
-}
 #endif
 
 /*
@@ -405,13 +399,6 @@ static void cleanup(int signum)
 int main(void)
 {
 	int dev_null_fd;
-
-#ifndef SCANLOGD_USER
-/* We probably can't disable promiscuous mode if we aren't running as root */
-	signal(SIGTERM, cleanup);
-	signal(SIGINT, cleanup);
-	signal(SIGHUP, cleanup);
-#endif
 
 /* Initialize the packet capture interface */
 	if (in_init()) return 1;

@@ -1,8 +1,8 @@
-# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.5 2004/06/02 23:52:25 solar Exp $
+# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.6 2004/06/10 13:34:05 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
-Version: 2.2.4
+Version: 2.2.5
 Release: owl1
 License: relaxed BSD and (L)GPL-compatible
 Group: System Environment/Daemons
@@ -58,6 +58,12 @@ fi
 %config /etc/rc.d/init.d/scanlogd
 
 %changelog
+* Thu Jun 10 2004 Solar Designer <solar@owl.openwall.com> 2.2.5-owl1
+- Dropped the cleanup() stuff because it was not async-signal-safe and
+to implement it properly would depend on pcap_breakloop() and on a
+non-existent(?) equivalent for it with libnids; this code was only used
+when running as root which is something to not do anyway.
+
 * Thu Jun 03 2004 Solar Designer <solar@owl.openwall.com> 2.2.4-owl1
 - Detach from the tty by opening /dev/null on fd 0, 1, 2.
 
