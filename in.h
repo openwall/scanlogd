@@ -5,15 +5,11 @@
 #ifndef _SCANLOGD_IN_H
 #define _SCANLOGD_IN_H
 
-#ifndef _SCANLOGD_NETINET
-#define __BSD_SOURCE
-#define __FAVOR_BSD
+#define _BSD_SOURCE
 #include <netinet/in_systm.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
-#define _SCANLOGD_NETINET
-#endif
 
 #ifndef IP_MF
 #define IP_MF				0x2000
@@ -33,7 +29,7 @@ struct header {
 	char space[60 - sizeof(struct ip)];
 };
 
-extern int in_init();
+extern int in_init(void);
 extern void in_run(void (*process_packet)(struct header *packet, int size));
 
 #endif

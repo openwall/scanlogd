@@ -1,12 +1,11 @@
+#define _BSD_SOURCE
 #include <stdio.h>
 #include <sys/types.h>
-#define __BSD_SOURCE
-#define __FAVOR_BSD
 #include <netinet/in_systm.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
-#define _SCANLOGD_NETINET
+
 #include <nids.h>
 
 #include "params.h"

@@ -1,5 +1,5 @@
 /*
- * scanlogd v2.2 by Solar Designer <solar@false.com>.
+ * scanlogd 2.2.1 by Solar Designer <solar@openwall.com>.
  *
  * You're allowed to do whatever you like with this software (including
  * re-distribution in any form, with or without modification), provided
@@ -9,6 +9,7 @@
  * There's absolutely no warranty.
  */
 
+#define _BSD_SOURCE
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
@@ -21,13 +22,10 @@
 #include <syslog.h>
 #include <sys/times.h>
 #include <sys/types.h>
-#define __BSD_SOURCE
-#define __FAVOR_BSD
 #include <netinet/in_systm.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
-#define _SCANLOGD_NETINET
 #include <arpa/inet.h>
 
 #include "params.h"

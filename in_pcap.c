@@ -1,4 +1,6 @@
+#define _BSD_SOURCE
 #include <stdio.h>
+
 #include <pcap.h>
 
 #include "params.h"

@@ -1,4 +1,4 @@
-.TH SCANLOGD 8 "23 Apr 2000" "Openwall Project" "System Administration"
+.TH SCANLOGD 8 "8 May 2002" "Openwall Project" "System Administration"
 .SH NAME
 scanlogd \- detects and logs TCP port scans
 .SH SYNOPSIS
@@ -27,7 +27,7 @@ RFC 793). Control bits that were always set are encoded with an
 uppercase letter, and a lowercase letter is used if the bit was
 always clear. A question mark is used to indicate bits that
 changed from packet to packet.
-.SH "INTERFACES"
+.SH INTERFACES
 In order to do its job,
 .B scanlogd
 needs a way to obtain raw IP packets that either come to the system
@@ -53,7 +53,7 @@ want to monitor the traffic of an entire network at once, you should
 be using
 .B libnids
 in order to handle fragmented IP packets.
-.SH "COMPILE-TIME DEFAULTS"
+.SH COMPILE-TIME DEFAULTS
 At least 7 different privileged or 21 non-privileged ports, or a
 weighted combination of those, have to be accessed with no longer
 than 3 seconds between the accesses to be treated as a scan.
@@ -70,10 +70,10 @@ should be started as root since it needs access to a packet capture
 interface. By default, it switches to running as user
 .B scanlogd
 after the packet capture interface is initialized.
-.SH "EXIT STATUS"
+.SH EXIT STATUS
 If the daemon couldn't start up successfully, it will exit with a
 status of 1.
-.SH "USAGE"
+.SH USAGE
 You're expected to create a dummy user for
 .B scanlogd
 to run as. Make sure you allocate unique UID and GID to the user.
@@ -85,7 +85,7 @@ should be started from a rc.d script on system startup.
 In /etc/syslog.conf you may use something like:
 .PP
 daemon.alert	/var/log/alert
-.SH "SECURITY NOTES"
+.SH SECURITY NOTES
 As the name indicates,
 .B scanlogd
 only logs port scans.
@@ -98,18 +98,18 @@ Obviously, the source address of port scans can be spoofed.
 Sometimes IP addresses are shared between many people; this is the
 case for ISP shell servers, dynamic dialup pools, and corporate
 networks behind NAT (masquerading).
-.SH "BUGS"
+.SH BUGS
 Due to the nature of port scans, both false positives (detecting a
 scan when there isn't one) and false negatives (not detecting a scan
 when there's one) are possible. In particular, false positives occur
 when many small files are transferred rapidly with passive mode FTP.
 .SH AUTHORS
 .nf
-Solar Designer <solar@false.com>
+Solar Designer <solar@openwall.com>
 .fi
 Steffen Dettmer <steffen@dett.de>
 wrote the initial version of this manual page.
-.SH "SEE ALSO"
+.SH SEE ALSO
 .BR syslog (3),
 .BR syslog.conf (5),
 .BR libnids (3),
