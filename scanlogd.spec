@@ -1,4 +1,4 @@
-# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.6 2004/06/10 13:34:05 solar Exp $
+# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.7 2004/11/23 22:40:49 mci Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
@@ -23,12 +23,12 @@ in a short time, the event will be logged.
 make linux CFLAGS="-c -Wall $RPM_OPT_FLAGS"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT{%_sbindir,%_mandir/man8,/etc/rc.d/init.d}
+rm -rf %buildroot
+mkdir -p %buildroot{%_sbindir,%_mandir/man8,/etc/rc.d/init.d}
 
-install -m 700 scanlogd $RPM_BUILD_ROOT%_sbindir/
-install -m 644 scanlogd.8 $RPM_BUILD_ROOT%_mandir/man8/
-install -m 700 scanlogd.init $RPM_BUILD_ROOT/etc/rc.d/init.d/scanlogd
+install -m 700 scanlogd %buildroot%_sbindir/
+install -m 644 scanlogd.8 %buildroot%_mandir/man8/
+install -m 700 scanlogd.init %buildroot/etc/rc.d/init.d/scanlogd
 
 %pre
 grep -q ^scanlogd: /etc/group || groupadd -g 199 scanlogd
