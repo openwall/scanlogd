@@ -79,13 +79,6 @@
 #define SYSLOG_LEVEL			LOG_ALERT
 
 /*
- * librlog ident, don't ask me what this is for now. ;-)
- */
-#ifdef USE_RLOG
-#define RLOG_ID				SYSLOG_IDENT
-#endif
-
-/*
  * Keep track of up to LIST_SIZE source addresses, using a hash table of
  * HASH_SIZE entries for faster lookups, but limiting hash collisions to
  * HASH_MAX source addresses per the same hash value.

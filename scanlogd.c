@@ -32,10 +32,6 @@
 #include "params.h"
 #include "in.h"
 
-#ifdef USE_RLOG
-#include "rlog.h"
-#endif
-
 #define HF_DADDR_CHANGING		0x01
 #define HF_SPORT_CHANGING		0x02
 #define HF_TOS_CHANGING			0x04
@@ -169,12 +165,6 @@ prepare:
 	syslog(SYSLOG_LEVEL,
 		"%s to %s..., %s%s%s @%s",
 		s_saddr, s_daddr, s_flags, s_tos, s_ttl, s_time);
-
-#ifdef USE_RLOG
-	rlog(
-		"%s to %s..., %s%s%s @%s",
-		s_saddr, s_daddr, s_flags, s_tos, s_ttl, s_time);
-#endif
 }
 
 /*
@@ -190,14 +180,10 @@ static void safe_log(struct host *info)
 	if (now - last > LOG_DELAY_THRESHOLD || now < last) count = 0;
 	if (++count <= LOG_COUNT_THRESHOLD + 1) last = now;
 
-	if (count <= LOG_COUNT_THRESHOLD) {
+	if (count <= LOG_COUNT_THRESHOLD)
 		do_log(info);
-	} else if (count == LOG_COUNT_THRESHOLD + 1) {
+	else if (count == LOG_COUNT_THRESHOLD + 1)
 		syslog(SYSLOG_LEVEL, "More possible port scans follow");
-#ifdef USE_RLOG
-		rlog("More possible port scans follow");
-#endif
-	}
 }
 
 /*
@@ -421,16 +407,6 @@ int main(void)
 
 	chdir("/");
 	setsid();
-
-#ifdef USE_RLOG
-	errno = 0;
-	if (openrlog(RLOG_ID)) {
-		fprintf(stderr,
-			"openrlog(\"" RLOG_ID "\"): %s\n",
-			errno ? strerror(errno) : "Failed");
-		return 1;
-	}
-#endif
 
 /* We can drop root now */
 #ifdef SCANLOGD_USER
