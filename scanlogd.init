@@ -1,0 +1,45 @@
+#!/bin/sh
+# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.init,v 1.1 2004/06/02 00:43:09 solar Exp $
+#
+# chkconfig: 2345 35 85
+# description: \
+#	scanlogd detects and logs TCP port scans
+# processname: scanlogd
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+OWL_STARTUP_ENABLE=1
+
+case "$1" in
+start)
+	if [ "0$OWL_STARTUP_VERSION" -ge 3 ]; then
+		daemon --expect-user scanlogd scanlogd
+	else
+		daemon scanlogd
+	fi
+	;;
+stop)
+	if [ "0$OWL_STARTUP_VERSION" -ge 3 ]; then
+		killproc --expect-user scanlogd scanlogd
+	else
+		killproc scanlogd
+	fi
+	;;
+restart)
+	$0 stop
+	$0 start
+	;;
+status)
+	if [ "0$OWL_STARTUP_VERSION" -ge 3 ]; then
+		status --expect-user scanlogd scanlogd
+	else
+		status scanlogd
+	fi
+	;;
+*)
+	echo "Usage: scanlogd {start|stop|restart|status}"
+	exit 1
+esac
+
+exit $?
