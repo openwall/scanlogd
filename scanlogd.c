@@ -1,5 +1,5 @@
 /*
- * scanlogd 2.2.1 by Solar Designer <solar@openwall.com>.
+ * scanlogd 2.2.2 by Solar Designer <solar at openwall.com>.
  *
  * You're allowed to do whatever you like with this software (including
  * re-distribution in any form, with or without modification), provided
@@ -11,6 +11,7 @@
 
 #define _BSD_SOURCE
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
