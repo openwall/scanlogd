@@ -11,6 +11,7 @@
 
 #define _BSD_SOURCE
 #include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
@@ -403,6 +404,8 @@ static void cleanup(int signum)
  */
 int main(void)
 {
+	int dev_null_fd;
+
 #ifndef SCANLOGD_USER
 /* We probably can't disable promiscuous mode if we aren't running as root */
 	signal(SIGTERM, cleanup);
@@ -413,12 +416,14 @@ int main(void)
 /* Initialize the packet capture interface */
 	if (in_init()) return 1;
 
+/* Prepare for daemonizing */
 	chdir("/");
 	setsid();
 
 /* Must do these before chroot'ing */
 	tzset();
 	openlog(SYSLOG_IDENT, LOG_NDELAY, SYSLOG_FACILITY);
+	dev_null_fd = open("/dev/null", O_RDONLY);
 
 /* We can drop root now */
 #ifdef SCANLOGD_USER
@@ -441,6 +446,15 @@ int main(void)
 	}
 
 	setsid();
+
+/* Just assume that stdin, stdout, and stderr fd's were open at startup and
+ * thus are indeed not allocated to anything else. */
+	if (dev_null_fd >= 0) {
+		dup2(dev_null_fd, STDIN_FILENO);
+		dup2(dev_null_fd, STDOUT_FILENO);
+		dup2(dev_null_fd, STDERR_FILENO);
+		close(dev_null_fd);
+	}
 
 /* Initialize the state. All source IP addresses are set to 0.0.0.0, which
  * means the list entries aren't in use yet. */
