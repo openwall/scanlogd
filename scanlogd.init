@@ -1,9 +1,9 @@
 #!/bin/sh
-# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.init,v 1.1 2004/06/02 00:43:09 solar Exp $
+# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.init,v 1.2 2004/06/02 00:58:16 solar Exp $
 #
-# chkconfig: 2345 35 85
+# chkconfig: - 35 85
 # description: \
-#	scanlogd detects and logs TCP port scans
+#	scanlogd detects and logs TCP port scans.
 # processname: scanlogd
 
 # Source function library.

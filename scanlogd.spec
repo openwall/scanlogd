@@ -1,4 +1,4 @@
-# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.2 2004/06/02 00:51:03 solar Exp $
+# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.3 2004/06/02 00:58:16 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
@@ -41,10 +41,9 @@ if [ $1 -ge 2 ]; then
 fi
 
 %post
+/sbin/chkconfig --add scanlogd
 test -f /var/run/scanlogd.restart && /etc/rc.d/init.d/scanlogd start || :
 rm -f /var/run/scanlogd.restart
-# This is needed for upgrades from an older version of the startup script.
-/sbin/chkconfig scanlogd && /sbin/chkconfig scanlogd reset || :
 
 %preun
 if [ $1 -eq 0 ]; then
@@ -64,6 +63,8 @@ fi
 - Explained "any" and "all" magic device names in a comment in params.h.
 - Dropped the rlog stuff; librlog was never released.
 - chroot to /var/empty.
+- Do register scanlogd with chkconfig, but don't enable it for any runlevels
+by default.
 - Moved this spec file and the init script to under scanlogd/ to include
 them in the non-Owl-specific distribution of scanlogd.
 
