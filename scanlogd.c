@@ -1,5 +1,5 @@
 /*
- * scanlogd 2.2.2 by Solar Designer <solar at openwall.com>.
+ * scanlogd by Solar Designer <solar at openwall.com>.
  *
  * You're allowed to do whatever you like with this software (including
  * re-distribution in any form, with or without modification), provided
