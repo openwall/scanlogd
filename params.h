@@ -17,6 +17,12 @@
 #define SCANLOGD_USER			"scanlogd"
 
 /*
+ * An empty directory to chroot to. The directory and its parent directories
+ * must not be writable by anyone but root.
+ */
+#define SCANLOGD_CHROOT			"/var/empty"
+
+/*
  * Device to monitor, if you're using libnids or libpcap directly. #undef
  * this either if you're using the raw socket interface on Linux instead,
  * or if you'd like to let libpcap autodetect this for you.

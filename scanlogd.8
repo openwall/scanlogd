@@ -1,4 +1,4 @@
-.TH SCANLOGD 8 "23 May 2004" "Openwall Project" "System Administration"
+.TH SCANLOGD 8 "2 June 2004" "Openwall Project" "System Administration"
 .SH NAME
 scanlogd \- detects and logs TCP port scans
 .SH SYNOPSIS
@@ -37,7 +37,6 @@ connected to the system. Current versions of
 .B scanlogd
 can be built with support for one of several packet capture interfaces.
 .PP
-As of version 2.0,
 .B scanlogd
 is aware of the
 .B raw socket
@@ -67,7 +66,10 @@ and a priority level
 .PP
 .B scanlogd
 should be started as root since it needs access to a packet capture
-interface. By default, it switches to running as user
+interface.
+By default, it chroots to
+.I /var/empty
+and switches to running as user
 .B scanlogd
 after the packet capture interface is initialized.
 .SH EXIT STATUS

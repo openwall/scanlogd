@@ -378,12 +378,20 @@ static void drop_root(void)
 		exit(1);
 	}
 
+#ifdef SCANLOGD_CHROOT
+	if (chroot(SCANLOGD_CHROOT)) return pexit("chroot");
+	if (chdir("/")) return pexit("chdir");
+#endif
+
 	groups[0] = groups[1] = pw->pw_gid;
 	if (setgroups(1, groups)) pexit("setgroups");
 	if (setgid(pw->pw_gid)) pexit("setgid");
 	if (setuid(pw->pw_uid)) pexit("setuid");
 }
 #else
+#ifdef SCANLOGD_CHROOT
+#warning SCANLOGD_CHROOT makes no sense without SCANLOGD_USER; ignored.
+#endif
 static void cleanup(int signum)
 {
 	exit(0);	/* Just so that atexit(3) jobs are called */
@@ -407,6 +415,10 @@ int main(void)
 
 	chdir("/");
 	setsid();
+
+/* Must do these before chroot'ing */
+	tzset();
+	openlog(SYSLOG_IDENT, LOG_NDELAY, SYSLOG_FACILITY);
 
 /* We can drop root now */
 #ifdef SCANLOGD_USER
@@ -433,9 +445,6 @@ int main(void)
 /* Initialize the state. All source IP addresses are set to 0.0.0.0, which
  * means the list entries aren't in use yet. */
 	memset(&state, 0, sizeof(state));
-
-/* Huh? */
-	openlog(SYSLOG_IDENT, 0, SYSLOG_FACILITY);
 
 /* Let's start */
 	in_run(process_packet);
