@@ -453,7 +453,7 @@ int main(void)
 		dup2(dev_null_fd, STDIN_FILENO);
 		dup2(dev_null_fd, STDOUT_FILENO);
 		dup2(dev_null_fd, STDERR_FILENO);
-		close(dev_null_fd);
+		if (dev_null_fd >= 3) close(dev_null_fd);
 	}
 
 /* Initialize the state. All source IP addresses are set to 0.0.0.0, which
