@@ -1,4 +1,4 @@
-# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.3 2004/06/02 00:58:16 solar Exp $
+# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.4 2004/06/02 01:48:30 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
@@ -59,7 +59,8 @@ fi
 
 %changelog
 * Wed Jun 02 2004 Solar Designer <solar@owl.openwall.com> 2.2.3-owl1
-- Use Pavel Kankovsky's smart pcap expression, with a minor enhancement.
+- When built with libnids or direct libpcap support, use Pavel Kankovsky's
+smart pcap expression, with a minor enhancement.
 - Explained "any" and "all" magic device names in a comment in params.h.
 - Dropped the rlog stuff; librlog was never released.
 - chroot to /var/empty.
