@@ -1,4 +1,4 @@
-# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.1 2004/06/02 00:43:09 solar Exp $
+# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.2 2004/06/02 00:51:03 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
@@ -7,8 +7,7 @@ Release: owl1
 License: relaxed BSD and (L)GPL-compatible
 Group: System Environment/Daemons
 URL: http://www.openwall.com/scanlogd/
-Source0: ftp://ftp.openwall.com/pub/projects/scanlogd/scanlogd-%version.tar.gz
-Source1: scanlogd.init
+Source: ftp://ftp.openwall.com/pub/projects/scanlogd/scanlogd-%version.tar.gz
 PreReq: /sbin/chkconfig, grep, shadow-utils
 BuildRoot: /override/%name-%version
 
@@ -29,8 +28,7 @@ mkdir -p $RPM_BUILD_ROOT{%_sbindir,%_mandir/man8,/etc/rc.d/init.d}
 
 install -m 700 scanlogd $RPM_BUILD_ROOT%_sbindir/
 install -m 644 scanlogd.8 $RPM_BUILD_ROOT%_mandir/man8/
-install -m 700 $RPM_SOURCE_DIR/scanlogd.init \
-	$RPM_BUILD_ROOT/etc/rc.d/init.d/scanlogd
+install -m 700 scanlogd.init $RPM_BUILD_ROOT/etc/rc.d/init.d/scanlogd
 
 %pre
 grep -q ^scanlogd: /etc/group || groupadd -g 199 scanlogd
@@ -66,6 +64,8 @@ fi
 - Explained "any" and "all" magic device names in a comment in params.h.
 - Dropped the rlog stuff; librlog was never released.
 - chroot to /var/empty.
+- Moved this spec file and the init script to under scanlogd/ to include
+them in the non-Owl-specific distribution of scanlogd.
 
 * Sun May 23 2004 Solar Designer <solar@owl.openwall.com> 2.2.2-owl1
 - #include <stdlib.h> for exit(3) (apparently this is actually needed on
