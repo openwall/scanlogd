@@ -29,7 +29,7 @@ int in_init(void)
 		return 1;
 	}
 
-	if (pcap_compile(p, &filter, "tcp", 1, 0)) {
+	if (pcap_compile(p, &filter, SCANLOGD_PCAP_FILTER, 1, 0)) {
 		pcap_perror(p, "pcap_compile");
 		return 1;
 	}

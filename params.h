@@ -20,6 +20,9 @@
  * Device to monitor, if you're using libnids or libpcap directly. #undef
  * this either if you're using the raw socket interface on Linux instead,
  * or if you'd like to let libpcap autodetect this for you.
+ *
+ * Recent versions of libpcap support magic device name "any" and recent
+ * libnids supports magic device name "all".
  */
 #undef SCANLOGD_DEVICE
 
@@ -28,6 +31,16 @@
  * use with libpcap.
  */
 #define SCANLOGD_PROMISC		0
+
+/*
+ * The libpcap filter expression to use when scanlogd is built with libnids
+ * or direct libpcap support.  The intent is to reduce CPU load by hopefully
+ * filtering out most of the uninteresting packets at the kernel level if
+ * supported by libpcap on a given platform.
+ */
+#define SCANLOGD_PCAP_FILTER \
+	"tcp and " \
+	"((tcp[13] != 0x10 and tcp[13] != 0x18) or ip[6:2] & 0x3fff != 0)"
 
 /*
  * High port numbers have a lower weight to reduce the frequency of false

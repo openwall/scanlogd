@@ -49,7 +49,7 @@ int in_init(void)
 	nids_params.n_hosts = HASH_SIZE;
 	nids_params.syslog = dummy_syslog;
 	nids_params.scan_num_hosts = 0;
-	nids_params.pcap_filter = "tcp";
+	nids_params.pcap_filter = SCANLOGD_PCAP_FILTER;
 #if defined(NIDS_MAJOR) && (NIDS_MAJOR > 1 || NIDS_MINOR >= 14)
 	nids_params.promisc = SCANLOGD_PROMISC;
 #endif
