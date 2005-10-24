@@ -1,4 +1,4 @@
-# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.7 2004/11/23 22:40:49 mci Exp $
+# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.8 2005/10/24 02:22:13 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
@@ -20,7 +20,7 @@ in a short time, the event will be logged.
 %setup -q
 
 %build
-make linux CFLAGS="-c -Wall $RPM_OPT_FLAGS"
+make linux CFLAGS="-c -Wall %optflags"
 
 %install
 rm -rf %buildroot
