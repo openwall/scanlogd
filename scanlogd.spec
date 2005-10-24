@@ -1,4 +1,4 @@
-# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.8 2005/10/24 02:22:13 solar Exp $
+# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.9 2005/10/24 03:06:29 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
@@ -58,16 +58,16 @@ fi
 %config /etc/rc.d/init.d/scanlogd
 
 %changelog
-* Thu Jun 10 2004 Solar Designer <solar@owl.openwall.com> 2.2.5-owl1
+* Thu Jun 10 2004 Solar Designer <solar-at-owl.openwall.com> 2.2.5-owl1
 - Dropped the cleanup() stuff because it was not async-signal-safe and
 to implement it properly would depend on pcap_breakloop() and on a
 non-existent(?) equivalent for it with libnids; this code was only used
 when running as root which is something to not do anyway.
 
-* Thu Jun 03 2004 Solar Designer <solar@owl.openwall.com> 2.2.4-owl1
+* Thu Jun 03 2004 Solar Designer <solar-at-owl.openwall.com> 2.2.4-owl1
 - Detach from the tty by opening /dev/null on fd 0, 1, 2.
 
-* Wed Jun 02 2004 Solar Designer <solar@owl.openwall.com> 2.2.3-owl1
+* Wed Jun 02 2004 Solar Designer <solar-at-owl.openwall.com> 2.2.3-owl1
 - When built with libnids or direct libpcap support, use Pavel Kankovsky's
 smart pcap expression, with a minor enhancement.
 - Explained "any" and "all" magic device names in a comment in params.h.
@@ -78,17 +78,17 @@ by default.
 - Moved this spec file and the init script to under scanlogd/ to include
 them in the non-Owl-specific distribution of scanlogd.
 
-* Sun May 23 2004 Solar Designer <solar@owl.openwall.com> 2.2.2-owl1
+* Sun May 23 2004 Solar Designer <solar-at-owl.openwall.com> 2.2.2-owl1
 - #include <stdlib.h> for exit(3) (apparently this is actually needed on
 FreeBSD).
 - Obfuscated e-mail addresses in the man page and sources.
 
-* Wed May 08 2002 Solar Designer <solar@owl.openwall.com> 2.2.1-owl1
+* Wed May 08 2002 Solar Designer <solar-at-owl.openwall.com> 2.2.1-owl1
 - Start after syslogd.
 - Don't abuse glibc-internal __feature macros.
 
-* Wed Feb 06 2002 Solar Designer <solar@owl.openwall.com>
+* Wed Feb 06 2002 Solar Designer <solar-at-owl.openwall.com>
 - Enforce our new spec file conventions.
 
-* Thu Jul 12 2001 Solar Designer <solar@owl.openwall.com>
+* Thu Jul 12 2001 Solar Designer <solar-at-owl.openwall.com>
 - Packaged scanlogd for Owl.
