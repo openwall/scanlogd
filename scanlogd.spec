@@ -1,4 +1,4 @@
-# $Id: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.9 2005/10/24 03:06:29 solar Exp $
+# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.10 2005/11/16 13:31:51 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
