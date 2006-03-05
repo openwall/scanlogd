@@ -19,7 +19,7 @@
 #endif
 
 /*
- * Packet header as read from a packet capture interface. In reality, the
+ * Packet header as read from a packet capture interface.  In reality, the
  * TCP header can be at a different offset; this is just to get the total
  * size right.
  */

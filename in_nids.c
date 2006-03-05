@@ -21,8 +21,8 @@ static void (*scanlogd_process_packet)(struct header *packet, int size);
 
 static void nids_process_packet(struct ip *packet)
 {
-/* Sanity check to make sure we calculate the packet size correctly. We
- * don't expect any fragments here, as libnids should have defragmented
+/* Sanity check to make sure we calculate the packet size correctly.  We
+ * don't expect any fragments here since libnids should have defragmented
  * stuff for us; this is for testing with nids_register_ip_frag(). */
 	if (packet->ip_off & htons(IP_MF | IP_OFFMASK))
 		return;

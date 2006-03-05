@@ -9,15 +9,14 @@
 #include <syslog.h>
 
 /*
- * An unprivileged dummy user to run as. The user and its UID must not be
- * used for any other purpose (that is, don't use "nobody" here). You can
- * #undef this to let scanlogd run as root, but I recommend against doing
- * so.
+ * An unprivileged dummy user to run as.  The user and its UID must not be
+ * used for any other purpose (that is, don't use "nobody" here).  You can
+ * #undef this to let scanlogd run as root, but this is not recommended.
  */
 #define SCANLOGD_USER			"scanlogd"
 
 /*
- * An empty directory to chroot to. The directory and its parent directories
+ * An empty directory to chroot to.  The directory and its parent directories
  * must not be writable by anyone but root.
  */
 #define SCANLOGD_CHROOT			"/var/empty"

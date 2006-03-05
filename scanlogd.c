@@ -236,7 +236,7 @@ static void process_packet(struct header *packet, int size)
 		if (current->next) last = current;
 	} while ((current = current->next));
 
-/* We know this address, and the entry isn't too old. Update it. */
+/* We know this address, and the entry isn't too old.  Update it. */
 	if (current)
 	if (now - current->timestamp <= scan_delay_threshold &&
 	    now >= current->timestamp) {
@@ -248,20 +248,20 @@ static void process_packet(struct header *packet, int size)
 			return;
 		}
 
-/* ACK and/or RST to a new port? This could be an outgoing connection. */
+/* ACK and/or RST to a new port?  This could be an outgoing connection. */
 		if (flags & (TH_ACK | TH_RST)) return;
 
 /* Packet to a new port, and not ACK: update the timestamp */
 		current->timestamp = now;
 
-/* Logged this scan already? Then leave. */
+/* Logged this scan already?  Then leave. */
 		if (current->weight >= SCAN_WEIGHT_THRESHOLD) return;
 
 /* Update the TCP flags */
 		current->flags_or |= flags;
 		current->flags_and &= flags;
 
-/* Specify if destination address, source port, TOS or TTL are not fixed */
+/* Specify if destination address, source port, TOS, or TTL are not fixed */
 		if (current->daddr.s_addr != ip->ip_dst.s_addr)
 			current->flags |= HF_DADDR_CHANGING;
 		if (current->sport != tcp->th_sport)
@@ -275,7 +275,7 @@ static void process_packet(struct header *packet, int size)
 		current->weight += (ntohs(port) < 1024) ?
 			PORT_WEIGHT_PRIV : PORT_WEIGHT_HIGH;
 
-/* Got enough destination ports to decide that this is a scan? Then log it. */
+/* Got enough destination ports to decide that this is a scan?  Then log it. */
 		if (current->weight >= SCAN_WEIGHT_THRESHOLD) {
 			safe_log(current);
 			return;
@@ -288,8 +288,8 @@ static void process_packet(struct header *packet, int size)
 		return;
 	}
 
-/* We know this address, but the entry is outdated. Mark it unused, and
- * remove from the hash table. We'll allocate a new entry instead since
+/* We know this address, but the entry is outdated.  Mark it unused and
+ * remove from the hash table.  We'll allocate a new entry instead since
  * this one might get re-used too soon. */
 	if (current) {
 		current->saddr.s_addr = 0;
@@ -304,7 +304,7 @@ static void process_packet(struct header *packet, int size)
 /* We don't need an ACK from a new source address */
 	if (flags & TH_ACK) return;
 
-/* Got too many source addresses with the same hash value? Then remove the
+/* Got too many source addresses with the same hash value?  Then remove the
  * oldest one from the hash table, so that they can't take too much of our
  * CPU time even with carefully chosen spoofed IP addresses. */
 	if (count >= HASH_MAX && last) last->next = NULL;
@@ -455,7 +455,7 @@ int main(void)
 		if (dev_null_fd >= 3) close(dev_null_fd);
 	}
 
-/* Initialize the state. All source IP addresses are set to 0.0.0.0, which
+/* Initialize the state.  All source IP addresses are set to 0.0.0.0, which
  * means the list entries aren't in use yet. */
 	memset(&state, 0, sizeof(state));
 
