@@ -1,8 +1,8 @@
-# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.10 2005/11/16 13:31:51 solar Exp $
+# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.11 2006/03/05 10:08:25 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
-Version: 2.2.5
+Version: 2.2.6
 Release: owl1
 License: relaxed BSD and (L)GPL-compatible
 Group: System Environment/Daemons
@@ -20,7 +20,7 @@ in a short time, the event will be logged.
 %setup -q
 
 %build
-make linux CFLAGS="-c -Wall %optflags"
+%__make linux CFLAGS="-Wall %optflags"
 
 %install
 rm -rf %buildroot
@@ -58,6 +58,10 @@ fi
 %config /etc/rc.d/init.d/scanlogd
 
 %changelog
+* Sun Mar 05 2006 Solar Designer <solar-at-owl.openwall.com> 2.2.6-owl1
+- Use sysconf(_SC_CLK_TCK) instead of CLK_TCK when _SC_CLK_TCK is known to be
+available or CLK_TCK is not.
+
 * Thu Jun 10 2004 Solar Designer <solar-at-owl.openwall.com> 2.2.5-owl1
 - Dropped the cleanup() stuff because it was not async-signal-safe and
 to implement it properly would depend on pcap_breakloop() and on a
