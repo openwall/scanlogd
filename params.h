@@ -57,19 +57,20 @@
 
 /*
  * Port scan detection thresholds: at least COUNT ports need to be scanned
- * from the same source, with no longer than DELAY ticks between ports.
+ * from the same source, with no longer than DELAY seconds between ports.
  */
 #define SCAN_MIN_COUNT			7
 #define SCAN_MAX_COUNT			(SCAN_MIN_COUNT * PORT_WEIGHT_PRIV)
 #define SCAN_WEIGHT_THRESHOLD		SCAN_MAX_COUNT
-#define SCAN_DELAY_THRESHOLD		(CLK_TCK * 3)
+#define SCAN_DELAY_THRESHOLD		3
 
 /*
  * Log flood detection thresholds: temporarily stop logging if more than
- * COUNT port scans are detected with no longer than DELAY between them.
+ * COUNT port scans are detected with no longer than DELAY seconds between
+ * them.
  */
 #define LOG_COUNT_THRESHOLD		5
-#define LOG_DELAY_THRESHOLD		(CLK_TCK * 20)
+#define LOG_DELAY_THRESHOLD		20
 
 /*
  * Log line length limit, such as to fit into one SMS message. #undef this

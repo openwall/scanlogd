@@ -33,6 +33,8 @@
 #include "params.h"
 #include "in.h"
 
+static clock_t scan_delay_threshold, log_delay_threshold;
+
 #define HF_DADDR_CHANGING		0x01
 #define HF_SPORT_CHANGING		0x02
 #define HF_TOS_CHANGING			0x04
@@ -178,7 +180,7 @@ static void safe_log(struct host *info)
 	clock_t now;
 
 	now = info->timestamp;
-	if (now - last > LOG_DELAY_THRESHOLD || now < last) count = 0;
+	if (now - last > log_delay_threshold || now < last) count = 0;
 	if (++count <= LOG_COUNT_THRESHOLD + 1) last = now;
 
 	if (count <= LOG_COUNT_THRESHOLD)
@@ -236,7 +238,7 @@ static void process_packet(struct header *packet, int size)
 
 /* We know this address, and the entry isn't too old. Update it. */
 	if (current)
-	if (now - current->timestamp <= SCAN_DELAY_THRESHOLD &&
+	if (now - current->timestamp <= scan_delay_threshold &&
 	    now >= current->timestamp) {
 /* Just update the TCP flags if we've seen this port already */
 		for (index = 0; index < current->count; index++)
@@ -399,6 +401,7 @@ static void drop_root(void)
 int main(void)
 {
 	int dev_null_fd;
+	clock_t clk_tck;
 
 /* Initialize the packet capture interface */
 	if (in_init()) return 1;
@@ -411,6 +414,15 @@ int main(void)
 	tzset();
 	openlog(SYSLOG_IDENT, LOG_NDELAY, SYSLOG_FACILITY);
 	dev_null_fd = open("/dev/null", O_RDONLY);
+
+/* Also do this early - who knows what this system's sysconf() relies upon */
+#if defined(_SC_CLK_TCK) || !defined(CLK_TCK)
+	clk_tck = sysconf(_SC_CLK_TCK);
+#else
+	clk_tck = CLK_TCK;
+#endif
+	scan_delay_threshold = SCAN_DELAY_THRESHOLD * clk_tck;
+	log_delay_threshold = LOG_DELAY_THRESHOLD * clk_tck;
 
 /* We can drop root now */
 #ifdef SCANLOGD_USER
