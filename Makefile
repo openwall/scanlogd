@@ -1,7 +1,7 @@
 CC = gcc
-LD = gcc
+LD = $(CC)
 RM = rm -f
-CFLAGS = -c -Wall -O2 -fomit-frame-pointer
+CFLAGS = -Wall -O2 -fomit-frame-pointer
 LDFLAGS = -s
 
 PCAP_H = -I/usr/include/pcap
@@ -32,16 +32,16 @@ libpcap: $(OBJS_COMMON) in_pcap.o
 	$(LD) $(LDFLAGS) $(OBJS_COMMON) in_pcap.o $(PCAP_L) -o scanlogd
 
 in_pcap.o: params.h in.h
-	$(CC) $(CFLAGS) $(PCAP_H) in_pcap.c
+	$(CC) $(CFLAGS) $(PCAP_H) -c in_pcap.c
 
 in_nids.o: params.h in.h
-	$(CC) $(CFLAGS) $(NIDS_H) in_nids.c
+	$(CC) $(CFLAGS) $(NIDS_H) -c in_nids.c
 
 scanlogd.o: params.h in.h
 in_linux.o: params.h in.h
 
 .c.o:
-	$(CC) $(CFLAGS) $*.c
+	$(CC) $(CFLAGS) -c $*.c
 
 clean:
 	$(RM) $(PROJ) $(OBJS)
