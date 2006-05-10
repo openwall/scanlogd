@@ -136,7 +136,8 @@ prepare:
 		if ((info->flags_or & mask) == (info->flags_and & mask)) {
 			s_flags[index] = "fsrpauxy"[index];
 			if (info->flags_or & mask)
-				s_flags[index] = toupper(s_flags[index]);
+				s_flags[index] =
+				    toupper((int)(unsigned char)s_flags[index]);
 		} else
 			s_flags[index] = '?';
 	}
