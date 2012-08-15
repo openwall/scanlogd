@@ -1,10 +1,10 @@
-# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.12 2012/08/15 05:26:54 solar Exp $
+# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.13 2012/08/15 11:17:21 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
 Version: 2.2.7
 Release: owl1
-License: relaxed BSD and (L)GPL-compatible
+License: BSD-compatible
 Group: System Environment/Daemons
 URL: http://www.openwall.com/scanlogd/
 Source: ftp://ftp.openwall.com/pub/projects/scanlogd/scanlogd-%version.tar.gz
@@ -53,6 +53,7 @@ fi
 
 %files
 %defattr(-,root,root)
+%doc LICENSE
 %_sbindir/scanlogd
 %_mandir/man8/scanlogd.8*
 %config /etc/rc.d/init.d/scanlogd
@@ -69,6 +70,7 @@ the array limit would overwrite relatively unimportant data only (part of the
 same struct), which could be directly provided/spoofed by the remote system
 anyway.  However, in other projects reusing code from scanlogd this could be
 different.  Thanks to Florian Westphal for reporting this bug.
+- Switched to heavily cut-down BSD license.
 
 * Sun Mar 05 2006 Solar Designer <solar-at-owl.openwall.com> 2.2.6-owl1
 - Use sysconf(_SC_CLK_TCK) instead of CLK_TCK when _SC_CLK_TCK is known to be
