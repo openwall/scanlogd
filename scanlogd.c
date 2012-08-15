@@ -283,7 +283,7 @@ static void process_packet(struct header *packet, int size)
 		}
 
 /* Remember the new port */
-		if (current->count < SCAN_MAX_COUNT)
+		if (current->count < SCAN_MAX_COUNT - 1)
 			current->ports[current->count++] = port;
 
 		return;

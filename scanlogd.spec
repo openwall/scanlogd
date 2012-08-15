@@ -1,8 +1,8 @@
-# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.11 2006/03/05 10:08:25 solar Exp $
+# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.12 2012/08/15 05:26:54 solar Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
-Version: 2.2.6
+Version: 2.2.7
 Release: owl1
 License: relaxed BSD and (L)GPL-compatible
 Group: System Environment/Daemons
@@ -58,6 +58,18 @@ fi
 %config /etc/rc.d/init.d/scanlogd
 
 %changelog
+* Wed Aug 15 2012 Solar Designer <solar-at-owl.openwall.com> 2.2.7-owl1
+- Fixed an off-by-one bug in the safety check against SCAN_MAX_COUNT.  In
+properly configured builds of scanlogd, SCAN_WEIGHT_THRESHOLD is such that it's
+always hit before SCAN_MAX_COUNT would be hit, so this bug did not matter for
+those.  However, other projects reusing this code could make these settings
+runtime (mis)configurable, thereby exposing the bug.  Luckily, in scanlogd
+itself, if it is misconfigured like this, a port number written right beyond
+the array limit would overwrite relatively unimportant data only (part of the
+same struct), which could be directly provided/spoofed by the remote system
+anyway.  However, in other projects reusing code from scanlogd this could be
+different.  Thanks to Florian Westphal for reporting this bug.
+
 * Sun Mar 05 2006 Solar Designer <solar-at-owl.openwall.com> 2.2.6-owl1
 - Use sysconf(_SC_CLK_TCK) instead of CLK_TCK when _SC_CLK_TCK is known to be
 available or CLK_TCK is not.
