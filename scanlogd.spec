@@ -1,14 +1,14 @@
-# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.13 2012/08/15 11:17:21 solar Exp $
+# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.14 2014/07/12 14:15:23 galaxy Exp $
 
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
 Version: 2.2.7
-Release: owl1
+Release: owl2
 License: BSD-compatible
 Group: System Environment/Daemons
 URL: http://www.openwall.com/scanlogd/
 Source: ftp://ftp.openwall.com/pub/projects/scanlogd/scanlogd-%version.tar.gz
-PreReq: /sbin/chkconfig, grep, shadow-utils
+Requires(post,preun): chkconfig, grep, shadow-utils
 BuildRoot: /override/%name-%version
 
 %description
@@ -59,6 +59,9 @@ fi
 %config /etc/rc.d/init.d/scanlogd
 
 %changelog
+* Mon Jun 30 2014 (galaxyMaster) <galaxy-at-owl.openwall.com> 2.2.7-owl2
+- Replaced the deprecated PreReq tag with Requires(post,preun).
+
 * Wed Aug 15 2012 Solar Designer <solar-at-owl.openwall.com> 2.2.7-owl1
 - Fixed an off-by-one bug in the safety check against SCAN_MAX_COUNT.  In
 properly configured builds of scanlogd, SCAN_WEIGHT_THRESHOLD is such that it's
