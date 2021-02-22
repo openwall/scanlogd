@@ -5,7 +5,6 @@
 #ifndef _SCANLOGD_IN_H
 #define _SCANLOGD_IN_H
 
-#define _BSD_SOURCE
 #include <netinet/in_systm.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>

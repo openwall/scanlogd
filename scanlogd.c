@@ -3,7 +3,6 @@
  * See LICENSE
  */
 
-#define _BSD_SOURCE
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
