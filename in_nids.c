@@ -1,4 +1,5 @@
 #define _BSD_SOURCE
+#define _DEFAULT_SOURCE
 #include <stdio.h>
 #include <sys/types.h>
 #include <netinet/in_systm.h>
