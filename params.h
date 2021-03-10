@@ -16,8 +16,8 @@
 #define SCANLOGD_USER			"scanlogd"
 
 /*
- * An empty directory to chroot to.  The directory and its parent directories
- * must not be writable by anyone but root.
+ * An empty root-owned directory to chroot to.  THE DIRECTORY AND ITS PARENT
+ * DIRECTORIES MUST NOT BE WRITABLE BY ANYONE BUT ROOT.
  */
 #define SCANLOGD_CHROOT			"/var/empty"
 
