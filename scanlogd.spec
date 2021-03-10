@@ -1,9 +1,7 @@
-# $Owl: Owl/packages/scanlogd/scanlogd/scanlogd.spec,v 1.14 2014/07/12 14:15:23 galaxy Exp $
-
 Summary: A tool to detect and log TCP port scans.
 Name: scanlogd
-Version: 2.2.7
-Release: owl2
+Version: 2.2.8
+Release: owl1
 License: BSD-compatible
 Group: System Environment/Daemons
 URL: http://www.openwall.com/scanlogd/
@@ -53,12 +51,17 @@ fi
 
 %files
 %defattr(-,root,root)
-%doc LICENSE
+%doc LICENSE README.md
 %_sbindir/scanlogd
 %_mandir/man8/scanlogd.8*
 %config /etc/rc.d/init.d/scanlogd
 
 %changelog
+* Wed Mar 10 2021 Solar Designer <solar-at-owl.openwall.com> 2.2.8-owl1
+- Define _DEFAULT_SOURCE for new glibc, keep _BSD_SOURCE for old glibc
+- Clarify that SCANLOGD_CHROOT directory must be root-owned
+- Add README.md based on man page
+
 * Mon Jun 30 2014 (galaxyMaster) <galaxy-at-owl.openwall.com> 2.2.7-owl2
 - Replaced the deprecated PreReq tag with Requires(post,preun).
 
