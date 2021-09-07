@@ -53,9 +53,11 @@ void in_run(void (*process_packet)(struct header *packet, int size))
 	case DLT_RAW:
 	case DLT_SLIP:
 		hw_size = 0;
+		break;
 
 	case DLT_PPP:
 		hw_size = 4;
+		break;
 
 	case DLT_EN10MB:
 	default:
