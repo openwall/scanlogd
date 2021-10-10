@@ -3,25 +3,24 @@
 #include <stdio.h>
 
 #include <pcap.h>
+#include <string.h>
 
 #include "params.h"
 #include "in.h"
 
 static pcap_t *p;
 
+static char *device;
+
 int in_init(void)
 {
-	char *device;
 	char error[PCAP_ERRBUF_SIZE];
 	struct bpf_program filter;
 
 #ifdef SCANLOGD_DEVICE
 	device = SCANLOGD_DEVICE;
 #else
-	if (!(device = pcap_lookupdev(error))) {
-		fprintf(stderr, "pcap_lookupdev: %s\n", error);
-		return 1;
-	}
+	device = "any";
 #endif
 
 	if (!(p = pcap_open_live(device, sizeof(struct header),
@@ -63,6 +62,9 @@ void in_run(void (*process_packet)(struct header *packet, int size))
 	default:
 		hw_size = 14;
 	}
+
+        if(device == NULL || strcmp(device, "any") == 0)
+               hw_size += 2;
 
 	while (1)
 	if ((packet = (char *)pcap_next(p, &header))) {
