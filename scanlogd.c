@@ -378,8 +378,8 @@ static void drop_root(void)
 	}
 
 #ifdef SCANLOGD_CHROOT
-	if (chroot(SCANLOGD_CHROOT)) return pexit("chroot");
-	if (chdir("/")) return pexit("chdir");
+	if (chroot(SCANLOGD_CHROOT)) pexit("chroot(\"" SCANLOGD_CHROOT "\")");
+	if (chdir("/")) pexit("chdir");
 #endif
 
 	groups[0] = groups[1] = pw->pw_gid;
@@ -403,7 +403,7 @@ int main(void)
 	if (in_init()) return 1;
 
 /* Prepare for daemonizing */
-	chdir("/");
+	if (chdir("/")) pexit("chdir");
 	setsid();
 
 /* Must do these before chroot'ing */
